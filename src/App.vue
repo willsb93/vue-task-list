@@ -1,58 +1,69 @@
 <template>
   <div class="container">
-     <Header title = "Task Tracker"/>
-     <Tasks @toggle-reminder="toggleReminder" @delete-task="deleteTask" :tasks="tasks"/>
+    <Header title="Task Tracker" />
+    <AddTask @add-task="addTask"/>
+    <Tasks
+      @toggle-reminder="toggleReminder"
+      @delete-task="deleteTask"
+      :tasks="tasks"
+    />
   </div>
 </template>
 
 <script>
-
-import Header from './components/Header.vue';
-import Tasks from './components/Tasks.vue';
+import Header from "./components/Header.vue";
+import Tasks from "./components/Tasks.vue";
+import AddTask from "./components/AddTask.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     Header,
-    Tasks
+    Tasks,
+    AddTask
   },
   data() {
     return {
-      tasks: []
-    }
+      tasks: [],
+    };
   },
-  methods:{
+  methods: {
+    addTask(task){
+      this.tasks = [...this.tasks, task]
+    },
     deleteTask(id) {
-    if (confirm("Are you sure?")){
-      this.tasks = this.tasks.filter((task) => task.id != id)
+      if (confirm("Are you sure?")) {
+        this.tasks = this.tasks.filter((task) => task.id != id);
       }
     },
-    toggleReminder(id){
-      this.tasks = this.tasks.map((task) => task.id === id ? {...task, reminder: !task.reminder} : task)
-    }
+    toggleReminder(id) {
+      this.tasks = this.tasks.map((task) =>
+        task.id === id ? { ...task, reminder: !task.reminder } : task
+      );
+    },
   },
-  created(){
+  created() {
     this.tasks = [
       {
-        id : 1,
+        id: 1,
         text: "Clean the house",
         day: "Everyday at 6pm",
         reminder: true,
-      }
-    ]
-  }
-}
+      },
+    ];
+  },
+};
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap");
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 .container {
   max-width: 500px;
@@ -85,5 +96,5 @@ body {
 .btn-block {
   display: block;
   width: 100%;
-}  
+}
 </style>
