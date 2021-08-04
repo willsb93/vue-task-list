@@ -13,7 +13,7 @@ export default {
   },
   methods: {
     clicking() {
-      console.log("Something was clicked!");
+      this.$emit("toggle");
     },
   },
 };
